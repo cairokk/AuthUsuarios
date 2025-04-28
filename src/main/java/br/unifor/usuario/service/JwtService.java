@@ -11,7 +11,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "sua_chave_secreta_super_secreta_256_bits!"; // use 256 bits
+    private static final String SECRET_KEY = "e6b1c81276d24a86b4f99dcf8c6c3e09"; // use 256 bits
     private static final long EXPIRATION_TIME_MS = 1000 * 60 * 60 * 24; // 24 horas
 
     private Key getSigningKey() {

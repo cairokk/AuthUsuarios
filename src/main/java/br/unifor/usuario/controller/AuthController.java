@@ -32,5 +32,13 @@ public class AuthController {
         AuthResponseDTO token = usuarioService.login(dto.getEmail(), dto.getSenha());
         return ResponseEntity.ok(token);
     }
+
+    @Operation(summary = "Autenticar e obter token JWT")
+    @GetMapping("/teste")
+    public String teste() {
+        return "deu certo oh";
+    }
+
+
 }
 
