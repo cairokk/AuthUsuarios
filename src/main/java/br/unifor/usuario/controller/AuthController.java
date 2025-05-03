@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Tag(name = "Autenticação", description = "Endpoints para login e registro de usuários")
 @RestController
 @RequestMapping("/auth")
@@ -21,8 +23,8 @@ public class AuthController {
 
     @Operation(summary = "Registrar novo usuário")
     @PostMapping("/registrar")
-    public ResponseEntity<Usuario> registrar(@RequestBody RegistrarRequestDTO dto) {
-        Usuario usuario = usuarioService.registrarUsuario(dto.getEmail(), dto.getSenha(), dto.getRole());
+    public ResponseEntity<Usuario> registrar(@RequestBody RegistrarRequestDTO dto) throws Exception {
+        Usuario usuario = usuarioService.registrarUsuario(dto);
         return ResponseEntity.ok(usuario);
     }
 
@@ -31,6 +33,11 @@ public class AuthController {
     public ResponseEntity<AuthResponseDTO> login(@RequestBody LoginRequestDTO dto) {
         AuthResponseDTO token = usuarioService.login(dto.getEmail(), dto.getSenha());
         return ResponseEntity.ok(token);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Usuario> buscar(@PathVariable UUID id) {
+        return ResponseEntity.ok(usuarioService.buscarPorId(id));
     }
 
     @Operation(summary = "Autenticar e obter token JWT")

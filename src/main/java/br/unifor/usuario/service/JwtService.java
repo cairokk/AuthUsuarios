@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
@@ -18,9 +19,11 @@ public class JwtService {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
-    public String generateToken(String email) {
+    public String generateToken(String email, UUID id, String role) {
         return Jwts.builder()
                 .setSubject(email)
+                .claim("id", id)
+                .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_MS))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -34,6 +37,14 @@ public class JwtService {
     public boolean isTokenValid(String token, String email) {
         final String extractedEmail = extractEmail(token);
         return (extractedEmail.equals(email) && !isTokenExpired(token));
+    }
+
+    public String extractRole(String token) {
+        return extractClaim(token, claims -> claims.get("role", String.class));
+    }
+
+    public UUID extractId(String token) {
+        return extractClaim(token, claims -> claims.get("id", UUID.class));
     }
 
     private boolean isTokenExpired(String token) {
