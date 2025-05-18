@@ -23,7 +23,7 @@ public class PedidoService {
     @Autowired
     private PedidoEventPublisher publisher;
 
-    public void registrarPedido(Long pedidoId, UUID fornecedorId) {
+    public void registrarPedido(Long pedidoId, Long fornecedorId) {
         Pedido pedido = new Pedido();
         pedido.setId_pedido(pedidoId);
         pedido.setFornecedorId(fornecedorId);
@@ -32,7 +32,7 @@ public class PedidoService {
         pedidoRepository.save(pedido);
     }
 
-    public void atualizarStatus(Long pedidoId, StatusPedido novoStatus, UUID fornecedorId) {
+    public void atualizarStatus(Long pedidoId, StatusPedido novoStatus, Long fornecedorId) {
         Pedido pedido = pedidoRepository.findById(pedidoId)
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
 
@@ -47,7 +47,7 @@ public class PedidoService {
         publisher.publicarAtualizacao(pedido);
     }
 
-    public List<PedidoDTO> listarPedidosDoFornecedor(UUID fornecedorId) {
+    public List<PedidoDTO> listarPedidosDoFornecedor(Long fornecedorId) {
         List<Pedido> pedidos = pedidoRepository.findByFornecedorId(fornecedorId);
         return pedidos.stream()
                 .map(PedidoDTO::new) // usa o construtor que recebe Pedido

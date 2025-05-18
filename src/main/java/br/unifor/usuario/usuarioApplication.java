@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 @SpringBootApplication(scanBasePackages = {
         "br.unifor.usuario",
         "br.unifor.publicador",
-        "br.unifor.consumidor"
+        "br.unifor.Consumidor"
 })
 public class usuarioApplication {
 

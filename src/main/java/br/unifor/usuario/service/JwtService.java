@@ -19,7 +19,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
-    public String generateToken(String email, UUID id, String role) {
+    public String generateToken(String email, Long id, String role) {
         return Jwts.builder()
                 .setSubject(email)
                 .claim("id", id)
@@ -43,8 +43,8 @@ public class JwtService {
         return extractClaim(token, claims -> claims.get("role", String.class));
     }
 
-    public UUID extractId(String token) {
-        return extractClaim(token, claims -> claims.get("id", UUID.class));
+    public Long extractId(String token) {
+        return extractClaim(token, claims -> claims.get("id", Long.class));
     }
 
     private boolean isTokenExpired(String token) {

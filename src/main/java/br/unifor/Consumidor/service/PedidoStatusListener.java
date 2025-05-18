@@ -17,24 +17,25 @@ public class PedidoStatusListener {
 
     @KafkaListener(topics = "pedido-criado", groupId = "cliente-service-group")
     public void ouvirNovoPedido(@Payload NovoPedidoEvent evento) {
+        if (evento.getPedidoId() == null || evento.getClienteId() == null) {
+            System.err.println("❌ Mensagem inválida recebida, ignorando...");
+            return;  // ignora e sai
+        }
+
         try {
             System.out.println("📥 EVENTO RECEBIDO:");
             System.out.println("ID: " + evento.getPedidoId());
             System.out.println("Cliente: " + evento.getClienteId());
+
             pedidoService.registrarPedido(evento.getPedidoId(), evento.getClienteId());
+
             System.out.println("✅ Pedido salvo com sucesso no banco local.");
         } catch (Exception e) {
             System.err.println("❌ ERRO AO PROCESSAR EVENTO:");
             e.printStackTrace();
+            throw e; // permite que o ErrorHandler entre em ação
+
         }
     }
-
-//    @KafkaListener(topics = "pedido-criado", groupId = "debug-consumer")
-//    public void debugKafkaRawMessage(ConsumerRecord<String, String> record) {
-//        System.out.println("📦 CHAVE: " + record.key());
-//        System.out.println("📦 VALOR: " + record.value());
-//        System.out.println("📦 HEADERS: " + record.headers());
-//    }
-
 }
 

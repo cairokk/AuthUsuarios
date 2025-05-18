@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class NovoPedidoEvent {
     private Long pedidoId;
-    private UUID clienteId;
+    private Long clienteId;
     public NovoPedidoEvent() {
     }
     public Long getPedidoId() {
@@ -17,11 +17,11 @@ public class NovoPedidoEvent {
         this.pedidoId = pedidoId;
     }
 
-    public UUID getClienteId() {
+    public Long getClienteId() {
         return clienteId;
     }
 
-    public void setClienteId(UUID clienteId) {
+    public void setClienteId(Long clienteId) {
         this.clienteId = clienteId;
     }
 

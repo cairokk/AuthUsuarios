@@ -12,7 +12,7 @@ public class Pedido {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // ID do pedido vindo do outro serviço
+    private Long id;
 
     @Column(name = "id_pedido", unique = true, nullable = false)
     private Long id_pedido;
@@ -20,7 +20,7 @@ public class Pedido {
     private StatusPedido status;
 
     @Column(nullable = false)
-    private UUID fornecedorId;  // ID do fornecedor relacionado a este pedido
+    private Long fornecedorId;
 
     private LocalDateTime ultimaAtualizacao;
 
@@ -40,11 +40,11 @@ public class Pedido {
         this.status = status;
     }
 
-    public UUID getFornecedorId() {
+    public Long getFornecedorId() {
         return fornecedorId;
     }
 
-    public void setFornecedorId(UUID fornecedorId) {
+    public void setFornecedorId(Long fornecedorId) {
         this.fornecedorId = fornecedorId;
     }
 

@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
-    List<Pedido> findByFornecedorId(UUID fornecedorId);
+    List<Pedido> findByFornecedorId(Long fornecedorId);
 }

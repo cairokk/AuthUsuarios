@@ -28,7 +28,7 @@ public class FornecedorPedidoController {
     @GetMapping
     public ResponseEntity<List<PedidoDTO>> listarPedidosDoFornecedor(HttpServletRequest request) {
         String token = request.getHeader("Authorization").substring(7); // remove "Bearer "
-        UUID fornecedorId = jwtService.extractId(token); // claim "id" no token
+        Long fornecedorId = jwtService.extractId(token); // claim "id" no token
         List<PedidoDTO> pedidos = pedidoService.listarPedidosDoFornecedor(fornecedorId);
         return ResponseEntity.ok(pedidos);
     }
@@ -37,7 +37,7 @@ public class FornecedorPedidoController {
     public ResponseEntity<?> atualizarStatus(@PathVariable Long idPedido, @RequestParam StatusPedido status,
                                              HttpServletRequest request) {
         String token = request.getHeader("Authorization").substring(7); // remove "Bearer "
-        UUID fornecedorId = jwtService.extractId(token); // claim "id" no token
+        Long fornecedorId = jwtService.extractId(token); // claim "id" no token
 
         pedidoService.atualizarStatus(idPedido, status, fornecedorId);
         return ResponseEntity.ok().build();

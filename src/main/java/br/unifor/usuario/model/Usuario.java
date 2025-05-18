@@ -9,7 +9,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    private Long id;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -33,10 +33,10 @@ public class Usuario {
     private String sobrenome;
 
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
