@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class PedidoStatusEvent {
     private Long pedidoId;
-    private String novoStatus;
+    private String status;
     private LocalDateTime dataAtualizacao;
 
     public PedidoStatusEvent() {
@@ -12,7 +12,7 @@ public class PedidoStatusEvent {
 
     public PedidoStatusEvent(Long pedidoId, String novoStatus, LocalDateTime dataAtualizacao) {
         this.pedidoId = pedidoId;
-        this.novoStatus = novoStatus;
+        this.status = novoStatus;
         this.dataAtualizacao = dataAtualizacao;
     }
 
@@ -25,12 +25,12 @@ public class PedidoStatusEvent {
         this.pedidoId = pedidoId;
     }
 
-    public String getNovoStatus() {
-        return novoStatus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setNovoStatus(String novoStatus) {
-        this.novoStatus = novoStatus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public LocalDateTime getDataAtualizacao() {

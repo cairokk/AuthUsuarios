@@ -32,6 +32,23 @@ public class PedidoService {
         pedidoRepository.save(pedido);
     }
 
+    public void atualizarStatusPedido( Long pedidoId, String status ) throws Exception {
+        Pedido pedido = pedidoRepository.findById(pedidoId).orElse(null);
+
+        if (pedido == null){
+            throw new Exception("pedido não encontrado, id do pedido: " + pedidoId.toString());
+        }
+
+        if ("PAGO".equalsIgnoreCase(status)) {
+            pedido.setStatus(StatusPedido.PAGO);
+        } else {
+            pedido.setStatus(StatusPedido.CANCELADO);
+        }
+
+        pedidoRepository.save(pedido);
+
+    }
+
     public void atualizarStatus(Long pedidoId, StatusPedido novoStatus, Long fornecedorId) {
         Pedido pedido = pedidoRepository.findById(pedidoId)
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));

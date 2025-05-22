@@ -1,12 +1,12 @@
 package br.unifor.Consumidor.event;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 public class NovoPedidoEvent {
     private Long pedidoId;
     private Long clienteId;
+    
+    private String status;
+
+    private String tipoEvento;
     public NovoPedidoEvent() {
     }
     public Long getPedidoId() {
@@ -25,6 +25,21 @@ public class NovoPedidoEvent {
         this.clienteId = clienteId;
     }
 
-    // Getters, Setters e Construtor vazio (obrigatório para deserialização)
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getTipoEvento() {
+        return tipoEvento;
+    }
+
+    public void setTipoEvento(String tipoEvento) {
+        this.tipoEvento = tipoEvento;
+    }
 }
 

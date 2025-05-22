@@ -33,7 +33,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
-
+       
         final String authHeader = request.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -41,7 +41,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        String token = authHeader.substring(7); // remove "Bearer "
+        String token = authHeader.replace("Bearer", "").trim(); // remove "Bearer "
         String email;
 
         try {
@@ -58,7 +58,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             if (jwtService.isTokenValid(token, email)) {
                 String role = jwtService.extractRole(token);  // ← usa seu novo método aqui
-
                 List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
 
                 UsernamePasswordAuthenticationToken authToken =
@@ -66,9 +65,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
+
             }
         }
 
         filterChain.doFilter(request, response);
+
+
     }
 }

@@ -5,5 +5,6 @@ public enum StatusPedido {
     PROCESSANDO,
     ENVIADO,
     ENTREGUE,
-    CRIADO
+    CRIADO,
+    CANCELADO
 }

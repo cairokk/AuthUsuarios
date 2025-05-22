@@ -1,6 +1,7 @@
 package br.unifor.Consumidor.service;
 
 import br.unifor.Consumidor.event.NovoPedidoEvent;
+import br.unifor.Consumidor.event.PagamentoMensagem;
 import br.unifor.usuario.service.PedidoService;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PedidoStatusListener {
-
 
     @Autowired
     PedidoService pedidoService;
@@ -36,6 +36,18 @@ public class PedidoStatusListener {
             throw e; // permite que o ErrorHandler entre em ação
 
         }
+    }
+
+    @KafkaListener(topics = "pagamentos-processados", groupId = "cliente-service-group")
+    public void consumirStatusPagamento(@Payload NovoPedidoEvent mensagem) throws Exception {
+
+        Long idPedido = mensagem.getPedidoId();
+        String statusRecebido = mensagem.getStatus();
+        pedidoService.atualizarStatusPedido(idPedido, statusRecebido);
+
+        System.out.println("📦 Pedido " + idPedido + " atualizado para status: " + statusRecebido);
+
+
     }
 }
 

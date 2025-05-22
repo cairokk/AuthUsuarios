@@ -22,5 +22,4 @@ public class PagamentoAprovadoEvent {
         this.transacaoId = transacaoId;
     }
 
-    // getters/setters
 }

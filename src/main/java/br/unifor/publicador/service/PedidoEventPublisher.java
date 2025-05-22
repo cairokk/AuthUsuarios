@@ -16,9 +16,8 @@ public class PedidoEventPublisher {
     public void publicarAtualizacao(Pedido pedido) {
 
         PedidoStatusEvent event = new PedidoStatusEvent();
-        event.setPedidoId(pedido.getId());
-        event.setNovoStatus(pedido.getStatus().name());
-        event.setDataAtualizacao(pedido.getUltimaAtualizacao());
+        event.setPedidoId(pedido.getId_pedido());
+        event.setStatus(pedido.getStatus().name());
 
         kafkaTemplate.send(TOPICO, event);
     }
